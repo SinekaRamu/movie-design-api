@@ -1,0 +1,73 @@
+h1,
+p {
+  text-align: center;
+}
+a {
+  margin-left: 20px;
+}
+.gridBox {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: var(--grid-spacing-horizontal);
+  grid-row-gap: var(--grid-spacing-vertical);
+}
+
+@media screen and (max-width: 1650px) {
+  .gridBox {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .gridBox {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .gridBox {
+    display: block;
+  }
+}
+.movie-card {
+  border: 1px solid #1f1f1f;
+  box-shadow: 0 0 10px #fff;
+  background: hsl(205 25% 21% / 1);
+  transition: transform 0.2s;
+}
+
+.movie-card h3 {
+  width: 20ch;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.action {
+  display: flex;
+  justify-content: end;
+}
+
+.action button {
+  margin: 0 20px;
+}
+.refresh-btn {
+  margin: 0;
+  width: 62px;
+  height: 62px;
+}
+
+.home-bar {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.form-input {
+  margin: 0 auto;
+  width: 500px;
+}
+
+.form-btn {
+  width: 240px;
+  height: 62px;
+}
