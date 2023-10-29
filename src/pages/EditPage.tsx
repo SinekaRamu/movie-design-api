@@ -63,7 +63,6 @@ const EditPage = () => {
   return (
     <>
     {movie && (
-
     <Layout title={`edit:${movie.title}`}>
       <h1>Editing {movie.title} movie</h1>
       <Form type="edit" getMovie={movie} addingMovie={handleUpdate} />

@@ -36,7 +36,8 @@ const AddmoviePage = () => {
           msg: error.message,
         });
     }
-  }finally{
+  }
+  finally{
     setShowModal(true)
   }
 }

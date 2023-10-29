@@ -17,6 +17,7 @@ const HomePage = () => {
   });
   const toggleModal = () => {
     setShowModal((prevShowModal) => !prevShowModal);
+    
   };
   useEffect(() => {
     async function getMoviesFromAPI() {
@@ -34,7 +35,7 @@ const HomePage = () => {
   }, [refresh]);
 
   async function handleDelete(id: number | undefined) {
-    toggleModal();
+    // toggleModal();
     try {
       setRefresh(true);
       if (id) {
@@ -58,7 +59,7 @@ const HomePage = () => {
       }
     } finally {
       setRefresh(false);
-      setShowModal(true);
+      setShowModal(false);
     }
   }
 

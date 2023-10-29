@@ -1,4 +1,5 @@
 import { IShowError } from "../type";
+import { Link } from "react-router-dom";
 interface IModel {
   showModalMsg: IShowError;
   toggleModel: () => void;
@@ -7,24 +8,16 @@ interface IModel {
 }
 
 const Model: React.FC<IModel> = ({ showModalMsg,toggleModel}) => {
- 
-  // function closeModel() {
-  //   console.log("close")
-  //   navigate("/");
-  //   setShowModal(!showModal)
 
-  // }
   return (
     <>
     <dialog open>
       <article>
-        <a
-          href="#close"
-          aria-label="Close"
+        <Link
+          to="/"
           className="close"
-          data-target="modal-example"
           onClick={() => toggleModel()}
-        ></a>
+        ></Link>
         <h3>{showModalMsg.action}</h3>
         <p>{showModalMsg.msg}</p>
       </article>
