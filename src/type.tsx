@@ -1,7 +1,7 @@
 export interface IMovie {
   id?: number;
   title: string;
-  year: number | null;
+  year: number|undefined;
 }
 export interface IShowError {
   action: string;

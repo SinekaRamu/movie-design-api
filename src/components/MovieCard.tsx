@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
 import { IMovie } from "../type";
 
-const MovieCard: React.FC<IMovie> = (d) => {
+
+const MovieCard= (movie:IMovie) => {
+
+ 
   return (
     <>
-      <h3>{d.title}</h3>
-      <h4>{d.year}</h4>
+      <h3>{movie.title}</h3>
+      <h4>{movie.year}</h4>
       <div className="action">
-        <Link to="/edit" role="button">
+        <Link to={`/edit/${movie.id}`} role="button" state={movie}>
           📝
         </Link>
-        <Link to="/delete" role="button">
-          🚮
-        </Link>
+        
       </div>
     </>
   );

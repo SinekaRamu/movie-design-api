@@ -95,17 +95,17 @@ const HomePage = () => {
                   🚮
                 </button>
               </div>
-              {showModal && (
-                <>
-                  <Model
-                    showModalMsg={showModalMsg}
-                    toggleModel={toggleModal}
-                  />
-                </>
-              )}
             </article>
           ))}
         </div>
+      )}
+      {showModal && (
+        <>
+          <Model
+            showModalMsg={showModalMsg}
+            toggleModel={toggleModal}
+          />
+        </>
       )}
     </Layout>
   );

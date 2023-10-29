@@ -5,14 +5,14 @@ import FormButtons from "./FormButtons";
 interface IForm {
   type: string;
   addingMovie?: (m: IMovie) => void;
-  editMovie?: (m: IMovie) => void;
   getMovie?: IMovie;
 }
 
-const Form: React.FC<IForm> = ({ type, getMovie, addingMovie, editMovie }) => {
-  const [movie, setMovie] = useState<IMovie>(
-    getMovie ? getMovie : { title: "", year: undefined }
-  );
+const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
+  const [movie, setMovie] = useState(getMovie ||
+   {title: "",
+   year: undefined})
+   console.log(getMovie)
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setMovie({ ...movie, [name]: value });
@@ -22,18 +22,11 @@ const Form: React.FC<IForm> = ({ type, getMovie, addingMovie, editMovie }) => {
     e.preventDefault();
     if (addingMovie) {
       addingMovie(movie);
-      {
-        (movie.title = ""), (movie.year = 0);
-      }
-    }
-    if (editMovie) {
-      editMovie(movie);
-    }
+    } 
   }
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      {movie && (
         <>
           <div className="form-input">
             <FormInputs
@@ -57,7 +50,7 @@ const Form: React.FC<IForm> = ({ type, getMovie, addingMovie, editMovie }) => {
             <FormButtons btn1="add" btn2="Back" />
           )}
         </>
-      )}
+   
     </form>
   );
 };

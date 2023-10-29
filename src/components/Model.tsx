@@ -6,6 +6,7 @@ interface IModel {
 }
 
 const Model: React.FC<IModel> = ({ showModalMsg, toggleModel }) => {
+  
   return (
     <dialog open>
       <article>

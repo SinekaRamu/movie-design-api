@@ -3,8 +3,10 @@ import Form from "../components/Form";
 import { useNavigate } from "react-router-dom";
 import { addMovie } from "../services/api";
 import { IMovie } from "../type";
+import { useState } from "react";
 
 const AddmoviePage = () => {
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   async function handleAdd(m: IMovie) {
