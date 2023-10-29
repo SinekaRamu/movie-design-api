@@ -35,7 +35,7 @@ const HomePage = () => {
   }, [refresh]);
 
   async function handleDelete(id: number | undefined) {
-    // toggleModal();
+    toggleModal();
     try {
       setRefresh(true);
       if (id) {
@@ -43,7 +43,7 @@ const HomePage = () => {
       }
       setShowModalMsg({
         action: "success",
-        msg: "Card deleted",
+        msg: "Movie deleted",
       });
     } catch (error) {
       if (error instanceof Error) {
@@ -59,7 +59,6 @@ const HomePage = () => {
       }
     } finally {
       setRefresh(false);
-      setShowModal(false);
     }
   }
 

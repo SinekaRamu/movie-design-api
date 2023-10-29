@@ -2,14 +2,13 @@ import Layout from "../components/Layout";
 import Form from "../components/Form";
 import Model from "../components/Model";
 import { useEffect, useState } from "react";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { updateMovie, getMovie } from "../services/api";
 import { IMovie,IShowError } from "../type";
 
 const EditPage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<IMovie>();
-  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [showModalMsg, setShowModalMsg] = useState<IShowError>({
     action: "",
@@ -35,10 +34,7 @@ const EditPage = () => {
         getMoviesFromAPI(parsedId);   
     }
   }, [id]);
-  const toggleModal = () => {
-    setShowModal((prevShowModal) => !prevShowModal);
-    navigate("/")
-  };
+ 
   const handleUpdate = async (movie: IMovie) => {
     try {
       if (id) {
@@ -68,7 +64,6 @@ const EditPage = () => {
       <Form type="edit" getMovie={movie} addingMovie={handleUpdate} />
       {showModal&&<Model
             showModalMsg={showModalMsg}
-            toggleModel={toggleModal}
           />}
     </Layout>
     )}
