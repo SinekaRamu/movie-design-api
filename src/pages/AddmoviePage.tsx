@@ -1,14 +1,22 @@
 import Layout from "../components/Layout";
 import Form from "../components/Form";
+import Model from "../components/Model";
 import { useNavigate } from "react-router-dom";
 import { addMovie } from "../services/api";
-import { IMovie } from "../type";
+import { IMovie, IShowError } from "../type";
 import { useState } from "react";
 
 const AddmoviePage = () => {
-  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-
+  const [showModal, setShowModal] = useState(false);
+  const [showModalMsg, setShowModalMsg] = useState<IShowError>({
+    action: "",
+    msg: "",
+  });
+  const toggleModal = () => {
+    setShowModal((prevShowModal) => !prevShowModal);
+    navigate("/")
+  };
   async function handleAdd(m: IMovie) {
     try {
       const moviePayload = {
@@ -16,16 +24,30 @@ const AddmoviePage = () => {
         year: m.year,
       };
       await addMovie(moviePayload);
-      navigate("/");
-    } catch (err) {
-      navigate("/error");
+      setShowModalMsg({
+        action: "Succes",
+        msg: "Movie Added",
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error deleting movie:", error);
+        setShowModalMsg({
+          action: "Failed",
+          msg: error.message,
+        });
     }
+  }finally{
+    setShowModal(true)
   }
+}
   return (
     <Layout title="movieForm">
       <h1>Add Movie</h1>
       <Form type="add" addingMovie={handleAdd} />
-      {/* <Model /> */}
+      {showModal&&<Model
+            showModalMsg={showModalMsg}
+            toggleModel={toggleModal}
+          />}
     </Layout>
   );
 };

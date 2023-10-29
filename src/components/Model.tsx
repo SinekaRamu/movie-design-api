@@ -1,13 +1,21 @@
 import { IShowError } from "../type";
-
 interface IModel {
   showModalMsg: IShowError;
   toggleModel: () => void;
+
+  
 }
 
-const Model: React.FC<IModel> = ({ showModalMsg, toggleModel }) => {
-  
+const Model: React.FC<IModel> = ({ showModalMsg,toggleModel}) => {
+ 
+  // function closeModel() {
+  //   console.log("close")
+  //   navigate("/");
+  //   setShowModal(!showModal)
+
+  // }
   return (
+    <>
     <dialog open>
       <article>
         <a
@@ -21,6 +29,9 @@ const Model: React.FC<IModel> = ({ showModalMsg, toggleModel }) => {
         <p>{showModalMsg.msg}</p>
       </article>
     </dialog>
+  
+    
+    </>
   );
 };
 

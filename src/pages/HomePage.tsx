@@ -58,6 +58,7 @@ const HomePage = () => {
       }
     } finally {
       setRefresh(false);
+      setShowModal(true);
     }
   }
 
