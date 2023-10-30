@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IMovie } from "../type";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:5476",
@@ -9,16 +10,11 @@ export const getMovies = () => {
   return axiosInstance.get("/movies");
 };
 
-interface IMovieAdd {
-  title: string;
-  year: number|undefined;
-}
-
-export const addMovie = (payload: IMovieAdd) => {
+export const addMovie = (payload: IMovie) => {
   return axiosInstance.post("/movies", payload);
 };
 
-export const updateMovie = (payload: IMovieAdd, movieId: number) => {
+export const updateMovie = (payload: IMovie, movieId: number) => {
   return axiosInstance.put(`/movies/${movieId}`, payload);
 };
 
