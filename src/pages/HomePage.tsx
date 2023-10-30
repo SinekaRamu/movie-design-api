@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import { deleteMovie, getMovies } from "../services/api";
 import Loading from "../components/Loading";
 import Model from "../components/Model";
+import MovieCard from "../components/MovieCard";
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,9 +26,14 @@ const HomePage = () => {
       try {
         const response = await getMovies();
         setMovies(response.data);
-      } catch (err) {
-        console.log(err);
-      } finally {
+      } catch (error) {
+        if (error instanceof Error) {
+          setShowModal(true);
+          setShowModalMsg({
+            action: "failed",
+            msg: error.message,
+          });
+      } }finally {
         setIsLoading(false);
       }
     }
@@ -35,9 +41,7 @@ const HomePage = () => {
   }, [refresh]);
 
   async function handleDelete(id: number | undefined) {
-    toggleModal();
     try {
-      setRefresh(true);
       if (id) {
         await deleteMovie(id);
       }
@@ -45,24 +49,21 @@ const HomePage = () => {
         action: "success",
         msg: "Movie deleted",
       });
+      setShowModal(true);
     } catch (error) {
       if (error instanceof Error) {
         setShowModalMsg({
           action: "failed",
           msg: error.message,
         });
-      } else {
-        setShowModalMsg({
-          action: "failed",
-          msg: "An unknown error occurred.",
-        });
-      }
+      } 
     } finally {
-      setRefresh(false);
+      setRefresh((pre)=> !pre);
     }
   }
 
   return (
+    <>
     <Layout title="home">
       <h1>Movie API</h1>
       <div className="home-bar">
@@ -74,41 +75,26 @@ const HomePage = () => {
           disabled={isLoading}
           onClick={() => setRefresh((prev) => !prev)}
         >
-          🔃
+       {isLoading ? <Loading /> : <>🔃</>}
         </button>
       </div>
       {isLoading ? (
-        <Loading />
+        <p>Loading Movies..</p>
       ) : (
         <div className="gridBox">
           {movies.map((m, i) => (
             <article className="movie-card" key={i}>
-              <h3>{m.title}</h3>
-              <h4>{m.year}</h4>
-              <div className="action">
-                <Link to={`/edit/${m.id}`} role="button" state={m}>
-                  📝
-                </Link>
-                <button
-                  onClick={() => handleDelete(m.id)}
-                  className="refresh-btn"
-                >
-                  🚮
-                </button>
-              </div>
+               <MovieCard movie={m} handleDelete={handleDelete} />
             </article>
           ))}
         </div>
       )}
-      {showModal && (
-        <>
-          <Model
-            showModalMsg={showModalMsg}
-            toggleModel={toggleModal}
-          />
-        </>
-      )}
+      
     </Layout>
+    {showModal && (
+      <Model showModalMsg={showModalMsg} toggleModel={toggleModal} />
+    )}
+    </>
   );
 };
 

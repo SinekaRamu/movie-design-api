@@ -21,7 +21,7 @@ const AddmoviePage = () => {
       await addMovie(moviePayload);
       setShowModalMsg({
         action: "Succes",
-        msg: "Movie Added",
+        msg: "Movie successfully Added",
       });
     } catch (error) {
       if (error instanceof Error) {
@@ -40,9 +40,7 @@ const AddmoviePage = () => {
     <Layout title="movieForm">
       <h1>Add Movie</h1>
       <Form type="add" addingMovie={handleAdd} />
-      {showModal&&<Model
-            showModalMsg={showModalMsg}
-          />}
+      {showModal&&<Model showModalMsg={showModalMsg}/>}
     </Layout>
   );
 };

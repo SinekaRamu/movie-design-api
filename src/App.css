@@ -53,6 +53,9 @@ a {
   margin: 0 20px;
 }
 .refresh-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0;
   width: 62px;
   height: 62px;
@@ -71,4 +74,10 @@ a {
 .form-btn {
   width: 240px;
   height: 62px;
+}
+
+svg {
+  width: 100px;
+  height: 100px;
+  display: inherit;
 }
