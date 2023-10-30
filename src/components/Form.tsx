@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { IMovie } from "../type";
 import FormInputs from "./FormInputs";
-import FormButtons from "./FormButtons";
+import { Link } from "react-router-dom";
+// import FormButtons from "./FormButtons";
+import Loading from "./Loading";
 interface IForm {
   type: string;
   addingMovie?: (m: IMovie) => void;
@@ -9,10 +11,10 @@ interface IForm {
 }
 
 const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [movie, setMovie] = useState(getMovie ||
    {title: "",
    year: undefined})
-   console.log(getMovie)
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setMovie({ ...movie, [name]: value });
@@ -20,6 +22,7 @@ const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsLoading(true)
     if (addingMovie) {
       addingMovie(movie);
     } 
@@ -27,7 +30,7 @@ const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-        <>
+       <>
           <div className="form-input">
             <FormInputs
               label="Enter Movie Title"
@@ -41,16 +44,27 @@ const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
               type="number"
               name="year"
               value={movie.year}
-              handleChange={handleChange}
+          handleChange={handleChange}
             />
           </div>
-          {type == "edit" ? (
+          <div className="form-input home-bar">
+            <button type="submit" className="form-btn" disabled={isLoading}>
+              {isLoading&& <Loading/>}
+             {type=="edit" ? (<>update</>):(<>Add</>)}
+            </button>
+            <Link to="/" role="button" className="form-btn">
+             {type=="edit" ? (<>Back</>):(<>Cancel</>)}  
+            </Link>
+          </div>
+          {/* {type == "edit" ? (
             <FormButtons btn1="Update" btn2="Cancel" />
           ) : (
             <FormButtons btn1="add" btn2="Back" />
-          )}
+          )} */}
         </>
-   
+      
+      
+      
     </form>
   );
 };

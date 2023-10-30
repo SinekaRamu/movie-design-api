@@ -1,7 +1,10 @@
+body {
+  background-color: #1f1f1f;
+}
 h1,
 p {
   text-align: center;
-  color: #ccc
+  color: #e2e2e2
 }
 a {
   margin-left: 20px;
@@ -72,12 +75,14 @@ a {
 }
 
 .form-btn {
+  display: flex;
+  align-items: center;
   width: 240px;
   height: 62px;
 }
 
 svg {
-  width: 100px;
-  height: 100px;
+  width: 52px;
+  height: 52px;
   display: inherit;
 }
