@@ -18,7 +18,6 @@ const HomePage = () => {
   });
   const toggleModal = () => {
     setShowModal((prevShowModal) => !prevShowModal);
-    
   };
   useEffect(() => {
     async function getMoviesFromAPI() {
@@ -33,7 +32,8 @@ const HomePage = () => {
             action: "failed",
             msg: error.message,
           });
-      } }finally {
+        }
+      } finally {
         setIsLoading(false);
       }
     }
@@ -47,7 +47,7 @@ const HomePage = () => {
       }
       setShowModalMsg({
         action: "success",
-        msg: "Movie deleted",
+        msg: "Movie is deleted",
       });
       setShowModal(true);
     } catch (error) {
@@ -56,44 +56,43 @@ const HomePage = () => {
           action: "failed",
           msg: error.message,
         });
-      } 
+      }
     } finally {
-      setRefresh((pre)=> !pre);
+      setRefresh((pre) => !pre);
     }
   }
 
   return (
     <>
-    <Layout title="home">
-      <h1>Movie API</h1>
-      <div className="home-bar">
-        <Link to="/add" role="button">
-          ➕
-        </Link>
-        <button
-          className="refresh-btn"
-          disabled={isLoading}
-          onClick={() => setRefresh((prev) => !prev)}
-        >
-       {isLoading ? <Loading /> : <>🔃</>}
-        </button>
-      </div>
-      {isLoading ? (
-        <p>Loading Movies..</p>
-      ) : (
-        <div className="gridBox">
-          {movies.map((m, i) => (
-            <article className="movie-card" key={i}>
-               <MovieCard movie={m} handleDelete={handleDelete} />
-            </article>
-          ))}
+      <Layout title="home">
+        <h1>Movie APP</h1>
+        <div className="home-bar">
+          <Link to="/add" role="button">
+            ➕
+          </Link>
+          <button
+            className="refresh-btn"
+            disabled={isLoading}
+            onClick={() => setRefresh((prev) => !prev)}
+          >
+            {isLoading ? <Loading /> : <>🔃</>}
+          </button>
         </div>
+        {isLoading ? (
+          <p>Loading Movies..</p>
+        ) : (
+          <div className="gridBox">
+            {movies.map((m, i) => (
+              <article className="movie-card" key={i}>
+                <MovieCard movie={m} handleDelete={handleDelete} />
+              </article>
+            ))}
+          </div>
+        )}
+      </Layout>
+      {showModal && (
+        <Model showModalMsg={showModalMsg} toggleModel={toggleModal} />
       )}
-      
-    </Layout>
-    {showModal && (
-      <Model showModalMsg={showModalMsg} toggleModel={toggleModal} />
-    )}
     </>
   );
 };

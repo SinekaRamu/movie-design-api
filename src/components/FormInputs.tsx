@@ -2,7 +2,9 @@ interface IFormInput {
   label: string;
   type: string;
   name: string;
-  value?: string | number;
+  min?: string;
+  max?: string;
+  value?: string | number | undefined;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 const FormInputs: React.FC<IFormInput> = ({
@@ -10,6 +12,8 @@ const FormInputs: React.FC<IFormInput> = ({
   type,
   name,
   value,
+  min,
+  max,
   handleChange,
 }) => {
   return (
@@ -20,6 +24,8 @@ const FormInputs: React.FC<IFormInput> = ({
         id={name}
         name={name}
         value={value}
+        min={min}
+        max={max}
         onChange={(e) => handleChange(e)}
         placeholder={label}
         required
